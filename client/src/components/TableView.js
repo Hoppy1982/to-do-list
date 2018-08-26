@@ -5,23 +5,24 @@ class TableView extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectVal: '',
       tableName: '',
       rows: []
     }
+    this.getTableRows = this.getTableRows.bind(this)
+    this.tableSelect = this.tableSelect.bind(this)
+
     this.BASEURL = `http://localhost:3002/`
   }
 
   componentDidMount() {
-    this.getTableRows()
+    this.getTableRows('')
   }
 
   componentDidUpdate() {
     console.log(this.state.rows)
-    //this.render()
   }
 
-  getTableRows() {
+  getTableRows(tableName) {
     const OPTIONS = {
       method: 'GET',
       mode: 'cors',
@@ -32,29 +33,31 @@ class TableView extends Component {
       }
     }
 
-    fetch(`${this.BASEURL}api/table/categories/`, OPTIONS)
-      .then(res => {
-        return res.json()
-      })
-      .then(json => {
-        this.setState({
-          tableName: json.tableName,
-          rows: json.rows
+    if (tableName !== '') {
+      fetch(`${this.BASEURL}api/table/${tableName}/`, OPTIONS)
+        .then(res => {
+          return res.json()
         })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .then(json => {
+          this.setState({
+            tableName: json.tableName,
+            rows: json.rows
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
 
   tableSelect(event) {
-    this.setState({selectVal: })
+    this.getTableRows(event.target.value)
   }
 
   render() {
     return(
       <div>
-        <select onChange={this.tableSelect} value={this.state.selectVal}>
+        <select onChange={this.tableSelect}>
           <option value=''>none</option>
           <option value='todo'>todo</option>
           <option value='progresses'>progresses</option>
@@ -72,9 +75,9 @@ class TableView extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.rows.map(row =>
-              <tr key={row.category_id}>
-                <td>{row.category_id}</td>
+            {this.state.rows.map((row, index) =>
+              <tr key={index}>
+                <td>{row.category_id}</td>{/*iterate over object (row) keys*/}
                 <td>{row.category}</td>
               </tr>
             )}
