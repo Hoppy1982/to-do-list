@@ -7,26 +7,55 @@ class TableView extends Component {
     this.state = {
       rows: []
     }
+    this.BASEURL = `http://localhost:3002/`
   }
-  const BASEURL = `http://localhost:3002/`
+
+  componentDidMount() {
+    this.getTableRows()
+  }
+
+  componentDidUpdate() {
+    console.log(this.state.rows)
+    //this.render()
+  }
 
   getTableRows() {
-    fetch(`${BASEURL}api/table/categories/`)
+    const OPTIONS = {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    }
+    fetch(`${this.BASEURL}api/table/categories/`, OPTIONS)
       .then(res => {
-        this.setState({
-          rows: res.json()
-        })
+        return res.json()
+      })
+      .then(json => {//setState tableName as well
+        return json.rows
+      })
+      .then(rows=> {
+        this.setState({rows: rows})
       })
       .catch(err => {
-        console.log(err)
+        //console.log(err)
       })
   }
 
   render() {
     return(
-      <div>
-        {this.state.rows}
-      </div>
+      <table>
+        <tbody>
+          {this.state.rows.map(row =>
+            <tr key={row.category_id}>
+              <td>{row.category_id}</td>
+              <td>{row.category}</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     )
   }
 }

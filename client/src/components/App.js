@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 import FunctionalComponentExample from './FunctionalComponentExample'
 import ClassComponentExample from './ClassComponentExample'
+import TableView from './TableView'
 
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
   render() {
     return (
       <div id="pageContainer">
+        <TableView />
         <FunctionalComponentExample name='Mark' />
         <ClassComponentExample />
       </div>

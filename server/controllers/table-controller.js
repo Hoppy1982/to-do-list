@@ -1,5 +1,5 @@
 const getData = require('../db/get-data')
-const TableModel = require('../models/table-model');
+const TableModel = require('../models/table-model')
 
 class TableController {
   index(req, res, next) {
@@ -9,8 +9,8 @@ class TableController {
     // in case we needed to make multiple database queries
     // and need to wait for thm all to complete before we render the results
     TableModel.get(table).then(results => {
-      res.setHeader('Content-Type', 'application/json')
-      res.send(results)
+      res.header('Content-Type', 'application/json')
+      res.json(results)
     })
   }
 }

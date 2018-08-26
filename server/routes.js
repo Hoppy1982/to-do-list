@@ -1,7 +1,7 @@
 const path = require('path')
 const express = require('express')
 const requestLogger = require(path.join(__dirname, 'utils/route-middleware/request-logger'))
-const requestRedirects = require(path.join(__dirname, 'utils/route-middleware/request-redirects'))
+//const requestRedirects = require(path.join(__dirname, 'utils/route-middleware/request-redirects'))
 
 // front end routes
 const HomeController = require('./controllers/home-controller');
@@ -13,6 +13,13 @@ const TodoController = require('./controllers/todo-controller');
 
 const router = express.Router()
 
+//middleware to apply to everything, move it to own file
+router.use('/', (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+  next()
+})
+
 // front end URLs
 router.get('/home', HomeController.index)
 router.get('/404', ErrorController.error404)
@@ -23,6 +30,6 @@ router.get('/api/todo/', TodoController.index)
 router.post('/api/todo/', TodoController.create)
 // router.put('/api/todo/:id', TodoController.update)
 
-router.all('*', requestRedirects.redirect)
+//router.all('*', requestRedirects.redirect)
 
 module.exports = router
