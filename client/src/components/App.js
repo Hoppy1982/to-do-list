@@ -7,6 +7,7 @@ import {
   Redirect,
 } from 'react-router-dom'
 import TasksView from './TasksView'
+import TasksNew from './TasksNew'
 import TableView from './TableView'
 
 
@@ -19,6 +20,7 @@ class App extends Component {
     return (
       <div id="pageContainer">
         <TasksView />
+        <TasksNew />
         <TableView />
       </div>
     )
