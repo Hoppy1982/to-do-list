@@ -6,8 +6,7 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom'
-import FunctionalComponentExample from './FunctionalComponentExample'
-import ClassComponentExample from './ClassComponentExample'
+import TasksView from './TasksView'
 import TableView from './TableView'
 
 
@@ -19,9 +18,8 @@ class App extends Component {
   render() {
     return (
       <div id="pageContainer">
+        <TasksView />
         <TableView />
-        <FunctionalComponentExample name='Mark' />
-        <ClassComponentExample />
       </div>
     )
   }
