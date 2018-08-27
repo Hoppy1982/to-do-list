@@ -6,7 +6,7 @@ class TableView extends Component {
     super(props)
     this.state = {
       tableName: '',
-      rows: []
+      rows: [{noData: null}]
     }
     this.getTableRows = this.getTableRows.bind(this)
     this.tableSelect = this.tableSelect.bind(this)
@@ -18,9 +18,11 @@ class TableView extends Component {
     this.getTableRows('')
   }
 
+
   componentDidUpdate() {
     console.log(this.state.rows)
   }
+
 
   getTableRows(tableName) {
     const OPTIONS = {
@@ -47,19 +49,26 @@ class TableView extends Component {
         .catch(err => {
           console.log(err)
         })
+    } else if (tableName === '') {
+      this.setState({
+        rows: [{noData: null}],
+        tableName: 'no selection'
+      })
     }
   }
+
 
   tableSelect(event) {
     this.getTableRows(event.target.value)
   }
+
 
   render() {
     return(
       <div>
         <select onChange={this.tableSelect}>
           <option value=''>none</option>
-          <option value='todo'>todo</option>
+          <option value='tasks'>tasks</option>
           <option value='progresses'>progresses</option>
           <option value='categories'>categories</option>
         </select>
@@ -70,17 +79,18 @@ class TableView extends Component {
               <th colSpan='2'>{this.state.tableName}</th>
             </tr>
             <tr>
-              <th>category_id</th>
-              <th>category</th>
+              {Object.keys(this.state.rows[0]).map((keyName, keyIndex) =>
+                 <th key={keyIndex}>{keyName}</th>
+              )}
             </tr>
           </thead>
           <tbody>
-            {this.state.rows.map((row, index) =>
-              <tr key={index}>
-                <td>{row.category_id}</td>{/*iterate over object (row) keys*/}
-                <td>{row.category}</td>
+            {this.state.rows.map(row =>
+              <tr key={row[Object.keys(row)[0]]}>
+                {Object.keys(row).map((keyName, keyIndex) =>
+                  <td key={keyIndex}>{row[keyName]}</td>)}
               </tr>
-            )}
+              )}
           </tbody>
         </table>
       </div>
