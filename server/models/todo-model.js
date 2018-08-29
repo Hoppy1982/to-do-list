@@ -1,4 +1,5 @@
-const getData = require('../db/get-data')
+const database = require('../db/database')
+const validateUserInput = require('../utils/validate-user-input')
 
 class TodoModel {
   constructor() {
@@ -12,7 +13,7 @@ class TodoModel {
   }
 
   get() {
-    return getData(this.queryStr)
+    return database.queryDB(this.queryStr)
       .then(rows => {
         let results = {
           tableName: 'to-do-list',
@@ -30,8 +31,42 @@ class TodoModel {
       })
   }
 
-  create() {
-    // do the DB query
+  create(todoTaskUserInput) {
+    console.log('Received user input to create new todo task. Validating input..')
+
+    validateUserInput.todo(todoTaskUserInput)
+      .then(validationIssues => {
+        console.log(todoTaskUserInput.name)
+        console.log(todoTaskUserInput.description)
+
+        if (validationIssues.length === 0) {
+          let str = `INSERT INTO tasks (
+            task_name,
+            task_desc,
+            priority,
+            progress_id,
+            category_id
+          )
+          VALUES (
+            '${todoTaskUserInput.name}',
+            '${todoTaskUserInput.description}',
+            ${todoTaskUserInput.priority},
+            ${todoTaskUserInput.progress},
+            ${todoTaskUserInput.category}
+          );`
+          console.log('Input is valid, inserting todo task into DB..')
+          database.queryDB(str)
+            .then(rows => {
+              console.log(rows)
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        } else if (validationIssues.length > 0) {
+          console.log(`Input is invalid. validationIssues: ${validationIssues}`)
+        }
+
+      })
   }
 }
 

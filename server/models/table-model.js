@@ -1,8 +1,8 @@
-const getData = require('../db/get-data')
+const database = require('../db/database')
 
 class TableModel {
   get(table) {
-    return getData(`SELECT * FROM ${table}`)
+    return database.queryDB(`SELECT * FROM ${table}`)
       .then(rows => {
         let results = {
           tableName: table,

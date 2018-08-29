@@ -1,9 +1,8 @@
 const TodoModel = require('../models/todo-model');
 
+
 class TodoController {
   index(req, res, next) {
-    console.log('GET REQ headers follows below..')
-    console.log(req.headers)
     const {num_rows, cat_id, prog_id, priority_min} = req.query
 
     // change this to a promise all -
@@ -16,10 +15,12 @@ class TodoController {
       })
   }
 
-  create() {
+  create(req, res, next) {
+    TodoModel.create(req.body.todoTask)
+
     // handle post method
     // TodoModel.create(...);
-    // depending on th success of the model create
+    // depending on the success of the model create
     // return success or fail http error code and status message
   }
 }

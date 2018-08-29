@@ -27,25 +27,14 @@ pool.getConnection((err, connection) => {
   }
 
   if (connection) connection.release()
-
   return
 })
 
 
-module.exports = pool
-
-
-//below is method of creating pool only if it doesn't exist
-/*
-function getPool() {
-  if (pool) return pool
-  pool = mysql.createPool({
-    connectionLimit: 4,
-    host     : 'localhost',
-    user     : 'to-do-list--user',
-    password : 'user',
-    database : 'to_do_list'
-  })
-  return pool
+async function queryDB(queryStr) {
+  return await pool.promisifiedQuery(queryStr)
 }
-*/
+
+module.exports = {
+  queryDB: queryDB
+}

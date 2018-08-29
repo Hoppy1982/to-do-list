@@ -4,4 +4,4 @@ async function getData(queryStr) {
   return await pool.promisifiedQuery(queryStr)
 }
 
-module.exports = getData;
+module.exports = getData

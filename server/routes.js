@@ -13,12 +13,13 @@ const TodoController = require('./controllers/todo-controller');
 
 const router = express.Router()
 
-//middleware to apply to everything, move it to own file
+//middleware
 router.use('/', (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*")
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
   next()
 })
+//router.post('/api/todo/', validateTodoEntry.inputVal)//moving validate to function instead of middleware
 
 // front end URLs
 router.get('/home', HomeController.index)
