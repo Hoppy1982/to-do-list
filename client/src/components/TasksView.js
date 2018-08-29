@@ -10,6 +10,8 @@ class TasksView extends Component {
     }
 
     this.BASEURL = `http://localhost:3002/`
+
+    this.handleDel = this.handleDel.bind(this)
   }
 
 
@@ -40,6 +42,12 @@ class TasksView extends Component {
   }
 
 
+  handleDel(event) {
+    console.log(`deleting ${event.target.name}`)
+    //del that row
+  }
+
+
   render() {
     if (this.state.rows.length === 0) {
       return(
@@ -63,7 +71,9 @@ class TasksView extends Component {
               {this.state.rows.map(row =>
                 <tr key={row[Object.keys(row)[0]]}>
                   {Object.keys(row).map((keyName, keyIndex) =>
-                    <td key={keyIndex}>{row[keyName]}</td>)}
+                    <td key={keyIndex}>{row[keyName]}</td>
+                  )}
+                  <td><button onClick={this.handleDel} name={row.task_id}>del</button></td>{/*make button a component with prop for task_id?*/}
                 </tr>
                 )}
             </tbody>

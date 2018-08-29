@@ -78,7 +78,8 @@ class TableView extends Component {
               {this.state.rows.map(row =>
                 <tr key={row[Object.keys(row)[0]]}>
                   {Object.keys(row).map((keyName, keyIndex) =>
-                    <td key={keyIndex}>{row[keyName]}</td>)}
+                    <td key={keyIndex}>{row[keyName]}</td>
+                  )}
                 </tr>
                 )}
             </tbody>
