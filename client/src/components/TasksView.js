@@ -10,8 +10,6 @@ class TasksView extends Component {
     }
 
     this.BASEURL = `http://localhost:3002/`
-
-    this.handleDel = this.handleDel.bind(this)
   }
 
 
@@ -42,12 +40,6 @@ class TasksView extends Component {
   }
 
 
-  handleDel(event) {
-    console.log(`deleting ${event.target.name}`)
-    //del that row
-  }
-
-
   render() {
     if (this.state.rows.length === 0) {
       return(
@@ -73,7 +65,7 @@ class TasksView extends Component {
                   {Object.keys(row).map((keyName, keyIndex) =>
                     <td key={keyIndex}>{row[keyName]}</td>
                   )}
-                  <td><button onClick={this.handleDel} name={row.task_id}>del</button></td>{/*make button a component with prop for task_id?*/}
+                  <td><DelButton rowId={row.task_id}/></td>
                 </tr>
                 )}
             </tbody>
@@ -81,6 +73,47 @@ class TasksView extends Component {
         </div>
       )
     }
+  }
+}
+
+
+class DelButton extends Component {
+  constructor(props) {
+    super(props)
+    this.rowId = this.props.rowId
+    this.state = {}
+    this.handleDel = this.handleDel.bind(this)
+    this.BASEURL = `http://localhost:3002/`
+  }
+
+  handleDel(event) {
+    console.log(`deleting ${this.rowId}`)
+    const delData = {rowId: this.rowId}
+    const OPTIONS = {
+      method: 'DELETE',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify(delData)
+    }
+
+    fetch(`${this.BASEURL}api/todo/`, OPTIONS)
+      .then(res => {
+        console.log(`Delete was ${res}`)
+        return res
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  render() {
+    return(
+      <button onClick={this.handleDel}>del</button>
+    )
   }
 }
 

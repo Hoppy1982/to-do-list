@@ -17,6 +17,7 @@ const router = express.Router()
 router.use('/', (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*")
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")//not sure this should be applied to all routes
   next()
 })
 //router.post('/api/todo/', validateTodoEntry.inputVal)//moving validate to function instead of middleware
@@ -29,6 +30,7 @@ router.get('/404', ErrorController.error404)
 router.get('/api/table/:table/', TableController.index)
 router.get('/api/todo/', TodoController.index)
 router.post('/api/todo/', TodoController.create)
+router.delete('/api/todo/', TodoController.delete)
 // router.put('/api/todo/:id', TodoController.update)
 
 //router.all('*', requestRedirects.redirect)

@@ -48,8 +48,8 @@ class TodoModel {
             category_id
           )
           VALUES (
-            '${todoTaskUserInput.name}',
-            '${todoTaskUserInput.description}',
+           '${todoTaskUserInput.name}',
+           '${todoTaskUserInput.description}',
             ${todoTaskUserInput.priority},
             ${todoTaskUserInput.progress},
             ${todoTaskUserInput.category}
@@ -67,6 +67,11 @@ class TodoModel {
         }
 
       })
+  }
+
+  delete(delData) {
+    console.log(`delete row ${delData.rowId} request received..`)
+    return 'del done'
   }
 }
 

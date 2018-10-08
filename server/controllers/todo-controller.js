@@ -23,6 +23,11 @@ class TodoController {
     // depending on the success of the model create
     // return success or fail http error code and status message
   }
+
+  delete(req, res, next) {
+    TodoModel.delete(req.body)
+    res.send('response..')//doesn't work, ToDoModel.delete needs to return a promise?
+  }
 }
 
 const todoController = new TodoController()
