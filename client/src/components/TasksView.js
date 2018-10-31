@@ -102,8 +102,10 @@ class DelButton extends Component {
 
     fetch(`${this.BASEURL}api/todo/`, OPTIONS)
       .then(res => {
-        console.log(`Delete was ${res}`)
-        return res
+        return res.json()
+      })
+      .then(json => {
+        console.log(json.msg)
       })
       .catch(err => {
         console.log(err)

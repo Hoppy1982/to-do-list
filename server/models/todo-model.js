@@ -71,7 +71,9 @@ class TodoModel {
 
   delete(delData) {
     console.log(`delete row ${delData.rowId} request received..`)
-    return 'del done'
+    //attempt delete delete
+    //return success or failure msgs as appropriate
+    return 'delete was successful'
   }
 }
 

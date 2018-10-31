@@ -25,8 +25,10 @@ class TodoController {
   }
 
   delete(req, res, next) {
-    TodoModel.delete(req.body)
-    res.send('response..')//doesn't work, ToDoModel.delete needs to return a promise?
+    let deleteOperationStatus = TodoModel.delete(req.body)
+    console.log(`deleteOperationStatus: ${deleteOperationStatus}`)
+    res.setHeader('Content-Type', 'text/plain')
+    res.json({'msg': deleteOperationStatus})
   }
 }
 
