@@ -71,8 +71,10 @@ class TodoModel {
 
   delete(delData) {
     console.log(`delete row ${delData.rowId} request received..`)
-    //attempt delete delete
-    //return success or failure msgs as appropriate
+    let str = `DELETE FROM tasks WHERE task_id=${delData.rowId};`
+    //validate
+    //return different msgs for success or failure
+    database.queryDB(str)
     return 'delete was successful'
   }
 }
