@@ -10,33 +10,12 @@ class TasksView extends Component {
     }
 
     this.BASEURL = `http://localhost:3002/`
+    this.getData = this.getData.bind(this)
   }
 
 
   componentDidMount() {
-    const OPTIONS = {
-      method: 'GET',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      }
-    }
-
-    fetch(`${this.BASEURL}api/todo/`, OPTIONS)
-      .then(res => {
-        return res.json()
-      })
-      .then(json => {
-        this.setState({
-          tableName: json.tableName,
-          rows: json.rows
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    this.getData()
   }
 
 
@@ -65,7 +44,7 @@ class TasksView extends Component {
                   {Object.keys(row).map((keyName, keyIndex) =>
                     <td key={keyIndex}>{row[keyName]}</td>
                   )}
-                  <td><DelButton rowId={row.task_id}/></td>
+                  <td><DelButton rowId={row.task_id} postDel={this.getData}/></td>
                 </tr>
                 )}
             </tbody>
@@ -74,6 +53,33 @@ class TasksView extends Component {
       )
     }
   }
+
+
+  getData() {
+    const OPTIONS = {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    }
+
+    fetch(`${this.BASEURL}api/todo/`, OPTIONS)
+      .then(res => {
+        return res.json()
+      })
+      .then(json => {
+        this.setState({
+          tableName: json.tableName,
+          rows: json.rows
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 }
 
 
@@ -81,6 +87,7 @@ class DelButton extends Component {
   constructor(props) {
     super(props)
     this.rowId = this.props.rowId
+    this.postDel = this.props.postDel
     this.state = {}
     this.handleDel = this.handleDel.bind(this)
     this.BASEURL = `http://localhost:3002/`
@@ -106,6 +113,7 @@ class DelButton extends Component {
       })
       .then(json => {
         console.log(json.msg)
+        this.postDel()
       })
       .catch(err => {
         console.log(err)
