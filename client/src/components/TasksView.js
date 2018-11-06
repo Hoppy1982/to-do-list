@@ -4,47 +4,45 @@ import React, { Component } from 'react'
 class TasksView extends Component {
   constructor(props) {
     super(props)
+    this.tableName = this.props.tableName
+    this.rows = this.props.rows
+    this.getData = this.props.getData
     this.state = {
-      tableName: '',
-      rows: []
+      //tableName: '',
+      //rows: []
     }
 
-    this.BASEURL = `http://localhost:3002/`
-    this.getData = this.getData.bind(this)
-  }
-
-
-  componentDidMount() {
-    this.getData()
+    //this.BASEURL = `http://localhost:3002/`
+    //this.getData = this.getData.bind(this)
   }
 
 
   render() {
-    if (this.state.rows.length === 0) {
+    if (this.props.rows.length === 0) {
       return(
         <h2>Task data not fetched</h2>
       )
-    } else if (this.state.rows.length > 0) {
+    } else if (this.props.rows.length > 0) {
       return(
         <div>
           <table>
             <thead>
               <tr>
-                <th colSpan='2'>{this.state.tableName}</th>
+                <th colSpan='2'>{this.props.tableName}</th>
               </tr>
               <tr>
-                {Object.keys(this.state.rows[0]).map((keyName, keyIndex) =>
+                {Object.keys(this.props.rows[0]).map((keyName, keyIndex) =>
                    <th key={keyIndex}>{keyName}</th>
                 )}
               </tr>
             </thead>
             <tbody>
-              {this.state.rows.map(row =>
+              {this.props.rows.map(row =>
                 <tr key={row[Object.keys(row)[0]]}>
                   {Object.keys(row).map((keyName, keyIndex) =>
                     <td key={keyIndex}>{row[keyName]}</td>
                   )}
-                  <td><DelButton rowId={row.task_id} postDel={this.getData}/></td>
+                  <td><DelButton rowId={row.task_id} getData={this.getData}/></td>
                 </tr>
                 )}
             </tbody>
@@ -55,31 +53,6 @@ class TasksView extends Component {
   }
 
 
-  getData() {
-    const OPTIONS = {
-      method: 'GET',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      }
-    }
-
-    fetch(`${this.BASEURL}api/todo/`, OPTIONS)
-      .then(res => {
-        return res.json()
-      })
-      .then(json => {
-        this.setState({
-          tableName: json.tableName,
-          rows: json.rows
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
 }
 
 
@@ -87,7 +60,7 @@ class DelButton extends Component {
   constructor(props) {
     super(props)
     this.rowId = this.props.rowId
-    this.postDel = this.props.postDel
+    this.getData = this.props.getData
     this.state = {}
     this.handleDel = this.handleDel.bind(this)
     this.BASEURL = `http://localhost:3002/`
@@ -113,7 +86,7 @@ class DelButton extends Component {
       })
       .then(json => {
         console.log(json.msg)
-        this.postDel()
+        this.getData()
       })
       .catch(err => {
         console.log(err)

@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 class TasksNew extends Component {
   constructor(props) {
     super(props)
+    this.getData = this.props.getData
     this.state = {
       toggleEnterNewTasks: false,
       taskName: '',

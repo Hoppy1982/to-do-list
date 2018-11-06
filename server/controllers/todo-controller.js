@@ -16,7 +16,9 @@ class TodoController {
   }
 
   create(req, res, next) {
-    TodoModel.create(req.body.todoTask)
+    let postOperationSuccess = TodoModel.create(req.body.todoTask)
+    res.setHeader('Content-Type', 'text/plain')
+    res.send(postOperationSuccess)
 
     // handle post method
     // TodoModel.create(...);
