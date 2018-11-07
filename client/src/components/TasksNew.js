@@ -85,6 +85,7 @@ class TasksNew extends Component {
     fetch(`${this.BASEURL}api/todo/`, OPTIONS)
       .then(res => {
         console.log(res)
+        this.getData()
       })
   }
 
