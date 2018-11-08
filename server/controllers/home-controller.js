@@ -1,8 +1,9 @@
+const path = require('path')
 
 class HomeController {
   index(req, res, next) {
-    console.log('rendering home')
-    res.render('./dist/index.html')
+    let indexPagePath = path.join(__dirname, '/../../client/dist/index.html')
+    res.sendFile(indexPagePath)
   }
 }
 

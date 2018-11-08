@@ -2,7 +2,6 @@ const path = require('path')
 const express = require('express')
 const requestLogger = require(path.join(__dirname, 'utils/route-middleware/request-logger'))//implement this
 
-
 // front end routes
 const HomeController = require('./controllers/home-controller');
 const ErrorController = require('./controllers/error-controller');
@@ -23,13 +22,8 @@ router.use('/', (req, res, next) => {
 
 
 // front end URLs
-//router.get('/home', HomeController.index)
+router.get('/home', HomeController.index)
 router.get('/404', ErrorController.error404)
-
-router.get('/home', (req, res, nex) => {//move this to HomeController.index
-  let indexPagePath = path.join(__dirname, '/../client/dist/index.html')
-  res.sendFile(indexPagePath)
-})
 
 
 // api URLs
