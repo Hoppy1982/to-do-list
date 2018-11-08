@@ -24,7 +24,7 @@ class TasksView extends Component {
       )
     } else if (this.props.rows.length > 0) {
       return(
-        <div>
+        <div className={this.props.className}>
           <table>
             <thead>
               <tr>

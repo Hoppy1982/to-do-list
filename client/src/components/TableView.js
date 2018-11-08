@@ -61,7 +61,7 @@ class TableView extends Component {
       )
     } else if (this.state.tableName !== '') {
       return(
-        <div>
+        <div className={this.props.className}>
           <TableSelect handleSelect={this.handleTableSelect} value={this.state.tableName}/>
           <table>
             <thead>

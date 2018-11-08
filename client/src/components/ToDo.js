@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 import TasksView from './TasksView'
 import TasksNew from './TasksNew'
 import TableView from './TableView'
@@ -24,7 +25,7 @@ class ToDo extends Component {
 
   render() {
     return (
-      <div>
+      <div className={this.props.className}>
         <TasksView tableName ={this.state.tableName} rows={this.state.rows} getData={this.getData}/>
         <TasksNew getData={this.getData}/>
         <TableView />
@@ -62,5 +63,11 @@ class ToDo extends Component {
 
 }
 
+//Styling
+const StyledToDo = styled(ToDo)`
+  color: green;
+  border: solid #23235d 4px;
+`;
 
-export default ToDo;
+
+export default StyledToDo;

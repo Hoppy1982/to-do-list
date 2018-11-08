@@ -96,7 +96,7 @@ class TasksNew extends Component {
       )
     } else if (this.state.toggleEnterNewTasks === true) {
       return(
-        <div>
+        <div className={this.props.className}>
           <button onClick={this.handleToggleEnterNewTasks}>Enter New Task(s) {this.state.toggleEnterNewTasks ? 'on' : 'off'}</button>
 
           <form onSubmit={this.handleSubmit}>
