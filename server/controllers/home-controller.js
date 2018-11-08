@@ -1,6 +1,8 @@
+
 class HomeController {
   index(req, res, next) {
-    res.render('index', {pageName: 'Home'})
+    console.log('rendering home')
+    res.render('./dist/index.html')
   }
 }
 

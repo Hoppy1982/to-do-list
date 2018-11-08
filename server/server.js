@@ -8,6 +8,7 @@ const server = express()
 
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({extended: false}))
+server.use( express.static(__dirname + '/../client/dist') )
 server.use('/', routes)
 
 server.listen(SERVER_CONFIG.PORT)
