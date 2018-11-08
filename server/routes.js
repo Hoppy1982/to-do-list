@@ -12,6 +12,7 @@ const TodoController = require('./controllers/todo-controller');
 
 const router = express.Router()
 
+
 //middleware
 router.use('/', (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*")
@@ -19,11 +20,6 @@ router.use('/', (req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
   next()
 })
-
-
-// front end URLs
-router.get('/home', HomeController.index)
-router.get('/404', ErrorController.error404)
 
 
 // api URLs
@@ -34,6 +30,8 @@ router.delete('/api/todo/', TodoController.delete)
 // router.put('/api/todo/:id', TodoController.update)
 
 
+// front end URLs
+router.get('*', HomeController.index)//rename to something like allEndpoints?
 
 
 module.exports = router

@@ -9,4 +9,4 @@ class HomeController {
 
 const homeController = new HomeController()
 
-module.exports = homeController;
+module.exports = homeController

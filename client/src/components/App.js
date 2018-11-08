@@ -7,9 +7,7 @@ import {
   Redirect,
 } from 'react-router-dom'
 import ToDo from './ToDo'
-//import TasksView from './TasksView'
-//import TasksNew from './TasksNew'
-//import TableView from './TableView'
+import NotFound from './NotFound'
 
 
 class App extends Component {
@@ -20,7 +18,12 @@ class App extends Component {
   render() {
     return (
       <div id="pageContainer">
-        <ToDo />
+        <BrowserRouter>
+          <Switch>
+            <Route path='/' exact component={ToDo} />
+            <Route component={NotFound} />
+          </Switch>
+        </BrowserRouter>
       </div>
     )
   }

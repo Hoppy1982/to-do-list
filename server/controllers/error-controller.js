@@ -1,7 +1,9 @@
+const path = require('path')
+
 class ErrorController {
   error404(req, res, next) {
-    //res.render('404')
-    res.send('404! 404! 404!')
+    //update this to render 404 componet (page) once react router implented
+    res.send('404 404 404')
   }
 }
 

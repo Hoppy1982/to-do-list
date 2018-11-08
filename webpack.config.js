@@ -10,7 +10,7 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {contentBase: './client/dist'},
   plugins: [
-    new CleanWebpackPlugin(['dist/*']),
+    new CleanWebpackPlugin(['client/dist/*']),
     new HtmlWebpackPlugin({
       template: './client/src/index.html',
       filename: './index.html'
