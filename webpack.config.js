@@ -34,6 +34,10 @@ module.exports = {
       {
         test: /\.html$/,
         use: [{loader: 'html-loader'}]
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
+        loader: 'file-loader'
       }
     ]//end of rules
   }
