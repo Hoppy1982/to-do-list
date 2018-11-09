@@ -9,13 +9,7 @@ class TasksView extends Component {
     this.tableName = this.props.tableName
     this.rows = this.props.rows
     this.getData = this.props.getData
-    this.state = {
-      //tableName: '',
-      //rows: []
-    }
-
-    //this.BASEURL = `http://localhost:3002/`
-    //this.getData = this.getData.bind(this)
+    this.state = {}
   }
 
 
@@ -50,9 +44,6 @@ class TasksView extends Component {
 }
 
 
-
-
-
 const StyledTasksView = styled(TasksView)`
   border: solid #232323 4px;
   display: flex;
@@ -66,11 +57,12 @@ const StyledTasksView = styled(TasksView)`
     flex-wrap: wrap;
     align-items: space-between;
     justify-content: space-between;
-    width: 90%;
+    width: 96%;
+    max-width: 800px;
     background-color: #cecece;
     margin: 1em;
     padding: 0px;
-    border-radius: 1em;
+    border-radius: 0.5em;
   }
 
   .taskName {

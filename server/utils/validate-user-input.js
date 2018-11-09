@@ -43,7 +43,7 @@ function hasCorrectKeys(unValidatedData) {
 function sanitizeStr(str, maxLength) {
   console.log('Validating sanitizeStr..')
   let passesTest = true
-  const regex = /^[A-Za-z0-9_-\s]+$/
+  const regex = /^[A-Za-z0-9_-\s.!?,]+$/
 
   if (str.length < 2) { passesTest = false }
   if ( str.length > 0 && !regex.test(str) ) { passesTest = false }
