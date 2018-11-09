@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 
 
 class TasksView extends Component {
@@ -101,4 +102,17 @@ class DelButton extends Component {
 }
 
 
-export default TasksView
+const StyledTasksView = styled(TasksView)`
+  border: solid #232323 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  table {
+    border: solid red 2px;
+    width: 100%;
+  }
+`;
+
+
+export default StyledTasksView
