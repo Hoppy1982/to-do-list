@@ -1,0 +1,49 @@
+import React, { Component } from 'react'
+import styled from 'styled-components'
+
+
+class DelButton extends Component {
+  constructor(props) {
+    super(props)
+    this.rowId = this.props.rowId
+    this.getData = this.props.getData
+    this.state = {}
+    this.handleDel = this.handleDel.bind(this)
+    this.BASEURL = `http://localhost:3002/`
+  }
+
+  handleDel(event) {
+    console.log(`deleting ${this.rowId}`)
+    const delData = {rowId: this.rowId}
+    const OPTIONS = {
+      method: 'DELETE',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify(delData)
+    }
+
+    fetch(`${this.BASEURL}api/todo/`, OPTIONS)
+      .then(res => {
+        return res.json()
+      })
+      .then(json => {
+        console.log(json.msg)
+        this.getData()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  render() {
+    return(
+      <button onClick={this.handleDel}>del</button>
+    )
+  }
+}
+
+export default DelButton

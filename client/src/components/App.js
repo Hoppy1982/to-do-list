@@ -22,7 +22,6 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route path='/' exact component={ToDo} />
-            <Route path='/test' component={ToDo} />
             <Route component={NotFound} />
           </Switch>
         </BrowserRouter>

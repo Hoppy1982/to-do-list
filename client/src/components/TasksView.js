@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import DelButton from './DelButton'
 
 
 class TasksView extends Component {
@@ -21,96 +22,74 @@ class TasksView extends Component {
   render() {
     if (this.props.rows.length === 0) {
       return(
-        <h2>Task data not fetched</h2>
+        <h2>No task data to fetch</h2>
       )
     } else if (this.props.rows.length > 0) {
       return(
         <div className={this.props.className}>
-          <table>
-            <thead>
-              <tr>
-                <th colSpan='2'>{this.props.tableName}</th>
-              </tr>
-              <tr>
-                {Object.keys(this.props.rows[0]).map((keyName, keyIndex) =>
-                   <th key={keyIndex}>{keyName}</th>
-                )}
-              </tr>
-            </thead>
-            <tbody>
-              {this.props.rows.map(row =>
-                <tr key={row[Object.keys(row)[0]]}>
-                  {Object.keys(row).map((keyName, keyIndex) =>
-                    <td key={keyIndex}>{row[keyName]}</td>
-                  )}
-                  <td><DelButton rowId={row.task_id} getData={this.getData}/></td>
-                </tr>
-                )}
-            </tbody>
-          </table>
+          <h1>TasksView Component</h1>
+          {this.props.rows.map((row) =>
+            <div key={row[Object.keys(row)[0]]} className='taskWrapper'>
+              <div className='taskName'>{row.task_name}</div>
+              <div className='taskAncils'>
+                <div>{row.task_id}</div>
+                <div>{row.category}</div>
+                <div>{row.progress}</div>
+                <div>{row.priority}</div>
+                <div>Edit</div>
+                <DelButton rowId={row.task_id} getData={this.getData}/>
+              </div>
+              <div className='taskDescription'>{row.task_desc}</div>
+            </div>
+          )}
         </div>
       )
     }
   }
 
-
 }
 
 
-class DelButton extends Component {
-  constructor(props) {
-    super(props)
-    this.rowId = this.props.rowId
-    this.getData = this.props.getData
-    this.state = {}
-    this.handleDel = this.handleDel.bind(this)
-    this.BASEURL = `http://localhost:3002/`
-  }
 
-  handleDel(event) {
-    console.log(`deleting ${this.rowId}`)
-    const delData = {rowId: this.rowId}
-    const OPTIONS = {
-      method: 'DELETE',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify(delData)
-    }
-
-    fetch(`${this.BASEURL}api/todo/`, OPTIONS)
-      .then(res => {
-        return res.json()
-      })
-      .then(json => {
-        console.log(json.msg)
-        this.getData()
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
-  render() {
-    return(
-      <button onClick={this.handleDel}>del</button>
-    )
-  }
-}
 
 
 const StyledTasksView = styled(TasksView)`
   border: solid #232323 4px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  table {
-    border: solid red 2px;
-    width: 100%;
+  .taskWrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: space-between;
+    justify-content: space-between;
+    width: 90%;
+    background-color: #cecece;
+    margin: 1em;
+    padding: 0px;
+    border-radius: 1em;
+  }
+
+  .taskName {
+    text-align: center;
+    border-bottom: solid black 1px;
+    padding: 0.5em;
+  }
+
+  .taskAncils {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px;
+  }
+
+  .taskDescription {
+    border-top: solid black 1px;
+    padding: 0.5em;
   }
 `;
 
