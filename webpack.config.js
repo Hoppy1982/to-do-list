@@ -8,7 +8,10 @@ module.exports = {
     index: './client/src/index.js'
   },
   devtool: 'inline-source-map',
-  devServer: {contentBase: './client/dist'},
+  devServer: {
+    contentBase: './client/dist',
+    historyApiFallback: true
+  },
   plugins: [
     new CleanWebpackPlugin(['client/dist/*']),
     new HtmlWebpackPlugin({
