@@ -63,9 +63,10 @@ class ToDo extends Component {
 
 }
 
-//Styling
+
 const StyledToDo = styled(ToDo)`
-  color: #232389;
+  box-sizing: border-box;
+  color: #000;
   border: solid #23235d 4px;
 `;
 

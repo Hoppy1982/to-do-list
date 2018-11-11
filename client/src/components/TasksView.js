@@ -21,19 +21,27 @@ class TasksView extends Component {
     } else if (this.props.rows.length > 0) {
       return(
         <div className={this.props.className}>
+
           <h1>TasksView Component</h1>
+
           {this.props.rows.map((row) =>
             <div key={row[Object.keys(row)[0]]} className='taskWrapper'>
-              <div className='taskName'>{row.task_name}</div>
-              <div className='taskAncils'>
-                <div>{row.task_id}</div>
-                <div>{row.category}</div>
-                <div>{row.progress}</div>
-                <div>{row.priority}</div>
-                <div>Edit</div>
-                <DelButton rowId={row.task_id} getData={this.getData}/>
+
+              <div className='editButton'>Edit</div>
+
+              <div className='taskBodyWrapper'>
+                <div className='taskName'>{row.task_name}</div>
+                <div className='taskAncils'>
+                  <div>{row.task_id}</div>
+                  <div>{row.category}</div>
+                  <div>{row.progress}</div>
+                  <div>{row.priority}</div>
+                </div>
+                <div className='taskDescription'>{row.task_desc}</div>
               </div>
-              <div className='taskDescription'>{row.task_desc}</div>
+
+              <DelButton className='delButton' rowId={row.task_id} getData={this.getData}/>
+
             </div>
           )}
         </div>
@@ -54,29 +62,55 @@ const StyledTasksView = styled(TasksView)`
   }
 
   font-family: 'Lato', Fallback, sans-serif;
-  border: solid #232323 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
   .taskWrapper {
+    width: 96%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+    color: #000;
+  }
+
+  .editButton {
+    width: 100px;
+    align-self: flex-end;
+    background-color: #f4dc42;
+    font-weight: 700;
+    text-align: center;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border: solid black 3px;
+    border-bottom: none;
+  }
+
+  .delButton {
+    align-self: flex-start;
+    border: solid black 3px;
+    border-top: none;
+  }
+
+  .taskBodyWrapper {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     align-items: space-between;
     justify-content: space-between;
-    width: 96%;
-    max-width: 800px;
-    background-color: #cecece;
-    margin: 1em;
+    background-color: #5b5b56;
+    color: #fff;
     padding: 0px;
-    border-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    border: solid black 3px;
   }
 
   .taskName {
     text-align: center;
-    border-bottom: solid black 1px;
+    border-bottom: solid black 3px;
     padding: 0.5em;
   }
 
@@ -89,7 +123,7 @@ const StyledTasksView = styled(TasksView)`
   }
 
   .taskDescription {
-    border-top: solid black 1px;
+    border-top: solid black 3px;
     padding: 0.5em;
   }
 `;

@@ -41,9 +41,18 @@ class DelButton extends Component {
 
   render() {
     return(
-      <button onClick={this.handleDel}>del</button>
+      <button className={this.props.className} onClick={this.handleDel}>del</button>
     )
   }
 }
 
-export default DelButton
+const StyledDelButton = styled(DelButton)`
+  width: 100px;
+  background-color: #d83636;
+  font-weight: 700;
+  text-align: center;
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+`;
+
+export default StyledDelButton
