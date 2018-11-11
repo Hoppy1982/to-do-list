@@ -30,14 +30,14 @@ class TasksView extends Component {
               <div className='editButton'>Edit</div>
 
               <div className='taskBodyWrapper'>
-                <div className='taskName'>{row.task_name}</div>
+                <div className='taskName'>Task: {row.task_name}</div>
                 <div className='taskAncils'>
-                  <div>{row.task_id}</div>
-                  <div>{row.category}</div>
-                  <div>{row.progress}</div>
-                  <div>{row.priority}</div>
+                  <div>id: {row.task_id}</div>
+                  <div>category: {row.category}</div>
+                  <div>progress: {row.progress}</div>
+                  <div>priority: {row.priority}</div>
                 </div>
-                <div className='taskDescription'>{row.task_desc}</div>
+                <div className='taskDescription'>Description: {row.task_desc}</div>
               </div>
 
               <DelButton className='delButton' rowId={row.task_id} getData={this.getData}/>

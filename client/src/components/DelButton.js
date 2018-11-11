@@ -41,7 +41,7 @@ class DelButton extends Component {
 
   render() {
     return(
-      <button className={this.props.className} onClick={this.handleDel}>del</button>
+      <button className={this.props.className} onClick={this.handleDel}>Delete</button>
     )
   }
 }
