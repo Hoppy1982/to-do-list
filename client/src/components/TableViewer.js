@@ -60,13 +60,15 @@ class TableViewer extends Component {
     if (this.state.tableName === '') {
       tableToDisplay = <NoTableSelected />
     } else {
-      tableToDisplay = <RenderRawTable tableName={this.state.tableName} rows={this.state.rows}/>
+      tableToDisplay = <StyledRenderRawTable tableName={this.state.tableName} rows={this.state.rows}/>
     }
 
     return(
       <div className={this.props.className}>
-        <h1>Raw Table Viewer</h1>
-        <StyledTableSelect handleSelect={this.handleTableSelect} value={this.state.tableName}/>
+        <div className='tableViewerUpperSection'>
+          <h1>Raw Table Viewer</h1>
+          <StyledTableSelect handleSelect={this.handleTableSelect} value={this.state.tableName}/>
+        </div>
         {tableToDisplay}
       </div>
     )
@@ -91,15 +93,15 @@ class RenderRawTable extends Component {
           </tr>
           <tr>
             {Object.keys(this.props.rows[0]).map((keyName, keyIndex) =>
-               <th key={keyIndex}>{keyName}</th>
+               <th className='tColHeader' key={keyIndex}>{keyName}</th>
             )}
           </tr>
         </thead>
-        <tbody>
+        <tbody className='tBody'>
           {this.props.rows.map(row =>
             <tr key={row[Object.keys(row)[0]]}>
               {Object.keys(row).map((keyName, keyIndex) =>
-                <td key={keyIndex}>{row[keyName]}</td>
+                <td className='tCell' key={keyIndex}>{row[keyName]}</td>
               )}
             </tr>
             )}
@@ -117,7 +119,7 @@ class NoTableSelected extends Component {
 
   render() {
     return(
-      <p className={this.props.className}>No table selected</p>
+      <div className={this.props.className}></div>
     )
   }
 }
@@ -146,18 +148,66 @@ class TableSelect extends Component {
 //styling
 const StyledTableViewer = styled(TableViewer)`
   box-sizing: border-box;
-  border: solid black 3px;
   width: 96%;
   max-width: 800px;
   margin-top: 0.5em;
-  border-top-left-radius: 0.5em;
-  border-top-right-radius: 0.5em;
-`;
+
+  display: flex;
+  flex-direction: column;
+
+  .tableViewerUpperSection {
+    border: solid black 3px;
+    border-top-left-radius: 0.5em;
+    height: 24px;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+  }
+
+  h1 {
+    flex-basis: 600px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 4px;
+  }
+`
 
 
 const StyledTableSelect = styled(TableSelect)`
-  box-sizing: border-box;
-`;
+  border-left: solid black 3px;
+  border-right: solid black 1px;
+  outline:none;
+`
 
+
+const StyledRenderRawTable = styled(RenderRawTable)`
+  border-left: solid black 3px;
+  border-right: solid black 3px;
+  border-bottom: solid black 3px;
+  text-align: center;
+  box-sizing: border-box;
+  /*border-collapse: collapse;*/
+
+  table-layout: fixed;
+  width: 100%;
+
+  .tCell, .tColHeader {
+    /*border: solid grey 1px;*/
+  }
+
+  @media only screen and (max-width: 640px) {
+    .tCell, .tColHeader {
+      font-size: 0.8em;
+    }
+  }
+
+  @media only screen and (max-width: 540px) {
+    .tColHeader {
+      height: 120px;
+      transform: rotate(90deg)
+    }
+  }
+`
 
 export default StyledTableViewer
