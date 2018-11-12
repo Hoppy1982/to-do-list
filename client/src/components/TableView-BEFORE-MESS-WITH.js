@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 
-class TableViewer extends Component {
+class TableView extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -56,72 +56,45 @@ class TableViewer extends Component {
 
 
   render() {
-    let tableToDisplay
     if (this.state.tableName === '') {
-      tableToDisplay = <NoTableSelected />
-    } else {
-      tableToDisplay = <RenderRawTable tableName={this.state.tableName} rows={this.state.rows}/>
+      return(
+        <div className={this.props.className}>
+          <StyledTableSelect handleSelect={this.handleTableSelect} value={this.state.tableName}/>
+        </div>
+      )
+    } else if (this.state.tableName !== '') {
+      return(
+        <div className={this.props.className}>
+          <StyledTableSelect handleSelect={this.handleTableSelect} value={this.state.tableName}/>
+          <table>
+            <thead>
+              <tr>
+                <th colSpan='2'>{this.state.tableName}</th>
+              </tr>
+              <tr>
+                {Object.keys(this.state.rows[0]).map((keyName, keyIndex) =>
+                   <th key={keyIndex}>{keyName}</th>
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.rows.map(row =>
+                <tr key={row[Object.keys(row)[0]]}>
+                  {Object.keys(row).map((keyName, keyIndex) =>
+                    <td key={keyIndex}>{row[keyName]}</td>
+                  )}
+                </tr>
+                )}
+            </tbody>
+          </table>
+        </div>
+      )
     }
-
-    return(
-      <div className={this.props.className}>
-        <StyledTableSelect handleSelect={this.handleTableSelect} value={this.state.tableName}/>
-        {tableToDisplay}
-      </div>
-    )
   }
 }
 
 
 //Sub Components
-class RenderRawTable extends Component {
-  constructor(props) {
-    super(props)
-    this.tableName = this.props.tableName
-    this.rows = this.props.rows
-  }
-
-  render() {
-    return(
-      <table className={this.props.className}>
-        <thead>
-          <tr>
-            <th colSpan='2'>{this.tableName}</th>
-          </tr>
-          <tr>
-            {Object.keys(this.rows[0]).map((keyName, keyIndex) =>
-               <th key={keyIndex}>{keyName}</th>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {this.rows.map(row =>
-            <tr key={row[Object.keys(row)[0]]}>
-              {Object.keys(row).map((keyName, keyIndex) =>
-                <td key={keyIndex}>{row[keyName]}</td>
-              )}
-            </tr>
-            )}
-        </tbody>
-      </table>
-    )
-  }
-}
-
-
-class NoTableSelected extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    return(
-      <p className={this.props.className}>No table selected</p>
-    )
-  }
-}
-
-
 class TableSelect extends Component {
   constructor(props) {
     super(props)
@@ -143,7 +116,7 @@ class TableSelect extends Component {
 
 
 //styling
-const StyledTableViewer = styled(TableViewer)`
+const StyledTableView = styled(TableView)`
   box-sizing: border-box;
   border: solid black 3px;
   width: 96%;
@@ -159,4 +132,4 @@ const StyledTableSelect = styled(TableSelect)`
 `;
 
 
-export default StyledTableViewer
+export default StyledTableView

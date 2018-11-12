@@ -40,7 +40,7 @@ class TasksView extends Component {
                 <div className='taskDescription'>Description: {row.task_desc}</div>
               </div>
 
-              <DelButton className='delButton' rowId={row.task_id} getData={this.getData}/>
+              <StyledDelButton rowId={row.task_id} getData={this.getData}/>
 
             </div>
           )}
@@ -88,12 +88,6 @@ const StyledTasksView = styled(TasksView)`
     border-bottom: none;
   }
 
-  .delButton {
-    align-self: flex-start;
-    border: solid black 3px;
-    border-top: none;
-  }
-
   .taskBodyWrapper {
     display: flex;
     flex-direction: column;
@@ -126,7 +120,15 @@ const StyledTasksView = styled(TasksView)`
     border-top: solid black 3px;
     padding: 0.5em;
   }
-`;
+`
+
+
+
+const StyledDelButton = styled(DelButton)`
+  align-self: flex-start;
+  border: solid black 3px;
+  border-top: none;
+`
 
 
 export default StyledTasksView

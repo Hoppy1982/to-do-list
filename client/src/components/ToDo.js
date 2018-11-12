@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import TasksView from './TasksView'
 import TasksNew from './TasksNew'
-import TableView from './TableView'
+import TableViewer from './TableViewer'
 
 
 class ToDo extends Component {
@@ -26,9 +26,9 @@ class ToDo extends Component {
   render() {
     return (
       <div className={this.props.className}>
-        <TasksView tableName ={this.state.tableName} rows={this.state.rows} getData={this.getData}/>
+        <TableViewer />
         <TasksNew getData={this.getData}/>
-        <TableView />
+        <TasksView tableName ={this.state.tableName} rows={this.state.rows} getData={this.getData}/>
       </div>
     )
   }
@@ -67,7 +67,10 @@ class ToDo extends Component {
 const StyledToDo = styled(ToDo)`
   box-sizing: border-box;
   color: #000;
-  border: solid #23235d 4px;
+  border: solid grey 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 
