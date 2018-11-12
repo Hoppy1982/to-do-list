@@ -147,28 +147,6 @@ class TasksNew extends Component {
 }
 
 
-//Sub Components
-class EnterNewTaskButtonOn extends Component {
-  constructor(props) {
-    super(props)
-  }
-}
-
-
-class EnterNewTaskButtonOff extends Component {
-  constructor(props) {
-    super(props)
-  }
-}
-
-
-class NewTaskForm extends Component {
-  constructor(props) {
-    super(props)
-  }
-}
-
-
 //Styling
 const StyledTasksNew = styled(TasksNew)`
   box-sizing: border-box;

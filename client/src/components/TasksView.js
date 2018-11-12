@@ -22,12 +22,12 @@ class TasksView extends Component {
       return(
         <div className={this.props.className}>
 
-          <h1>TasksView Component</h1>
+          <h1 className='tasksViewH1'>TasksView Component</h1>
 
           {this.props.rows.map((row) =>
             <div key={row[Object.keys(row)[0]]} className='taskWrapper'>
 
-              <div className='editButton'>Edit</div>
+              <div className='editButton'>#!Edit!#</div>
 
               <div className='taskBodyWrapper'>
                 <div className='taskName'>Task: {row.task_name}</div>
@@ -55,6 +55,10 @@ class TasksView extends Component {
 const StyledTasksView = styled(TasksView)`
   width: 96%;
   max-width: 800px;
+
+  .tasksViewH1 {
+
+  }
 
   .taskWrapper {
     display: flex;

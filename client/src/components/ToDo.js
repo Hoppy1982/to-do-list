@@ -83,7 +83,8 @@ const StyledToDo = styled(ToDo)`
   padding: 0px;
   margin: 0px;
   color: #000;
-  border: solid grey 4px;
+  border: solid black 8px;
+  border-radius: 0.5em;
   display: flex;
   flex-direction: column;
   align-items: center;

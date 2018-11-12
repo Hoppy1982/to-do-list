@@ -53,6 +53,10 @@ const StyledDelButton = styled(DelButton)`
   text-align: center;
   border-bottom-left-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
+  &:hover {
+    background-color: #a31f1f;
+    cursor: pointer;
+  }
 `;
 
 export default StyledDelButton

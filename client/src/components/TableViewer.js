@@ -145,7 +145,7 @@ class TableSelect extends Component {
 }
 
 
-//styling
+//Styling
 const StyledTableViewer = styled(TableViewer)`
   box-sizing: border-box;
   width: 96%;
