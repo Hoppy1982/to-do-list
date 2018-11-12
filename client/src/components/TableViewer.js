@@ -65,6 +65,7 @@ class TableViewer extends Component {
 
     return(
       <div className={this.props.className}>
+        <h1>Raw Table Viewer</h1>
         <StyledTableSelect handleSelect={this.handleTableSelect} value={this.state.tableName}/>
         {tableToDisplay}
       </div>
@@ -86,16 +87,16 @@ class RenderRawTable extends Component {
       <table className={this.props.className}>
         <thead>
           <tr>
-            <th colSpan='2'>{this.tableName}</th>
+            <th colSpan='2'>{this.props.tableName}</th>
           </tr>
           <tr>
-            {Object.keys(this.rows[0]).map((keyName, keyIndex) =>
+            {Object.keys(this.props.rows[0]).map((keyName, keyIndex) =>
                <th key={keyIndex}>{keyName}</th>
             )}
           </tr>
         </thead>
         <tbody>
-          {this.rows.map(row =>
+          {this.props.rows.map(row =>
             <tr key={row[Object.keys(row)[0]]}>
               {Object.keys(row).map((keyName, keyIndex) =>
                 <td key={keyIndex}>{row[keyName]}</td>
