@@ -56,11 +56,12 @@ class TableViewer extends Component {
 
 
   render() {
-    let tableToDisplay
+    let componentToDisplay
+
     if (this.state.tableName === '') {
-      tableToDisplay = <NoTableSelected />
+       componentToDisplay = <NoTableSelected />
     } else {
-      tableToDisplay = <StyledRenderRawTable tableName={this.state.tableName} rows={this.state.rows}/>
+       componentToDisplay = <StyledRenderRawTable tableName={this.state.tableName} rows={this.state.rows}/>
     }
 
     return(
@@ -69,7 +70,7 @@ class TableViewer extends Component {
           <h1>Raw Table Viewer</h1>
           <StyledTableSelect handleSelect={this.handleTableSelect} value={this.state.tableName}/>
         </div>
-        {tableToDisplay}
+        {componentToDisplay}
       </div>
     )
   }

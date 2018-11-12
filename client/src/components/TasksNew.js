@@ -8,6 +8,71 @@ class TasksNew extends Component {
     this.getData = this.props.getData
     this.state = {
       toggleEnterNewTasks: false,
+    }
+
+    this.handleToggleEnterNewTasks = this.handleToggleEnterNewTasks.bind(this)
+  }
+
+  handleToggleEnterNewTasks() {
+    this.setState(prevState => ({
+      toggleEnterNewTasks: !prevState.toggleEnterNewTasks
+    }))
+  }
+
+  render() {
+    let componentToDisplay
+
+    if (this.state.toggleEnterNewTasks === false) {
+      componentToDisplay = <NewTaskNotSelected />//maybe replace these with a generic empty component
+    } else if (this.state.toggleEnterNewTasks === true) {
+      componentToDisplay = <StyledNewTaskForm getData={this.props.getData}/>
+    }
+
+    return(
+      <div className={this.props.className}>
+        <EnterNewTaskToggle toggleEnterNewTasks={this.state.toggleEnterNewTasks} handleToggleEnterNewTasks={this.handleToggleEnterNewTasks}/>
+        {componentToDisplay}
+      </div>
+    )
+
+  }
+}
+
+
+//Sub Components
+class EnterNewTaskToggle extends Component {
+  constructor(props) {
+    super(props)
+    this.toggleEnterNewTasks = this.props.toggleEnterNewTasks
+    this.handleToggleEnterNewTasks = this.props.handleToggleEnterNewTasks
+  }
+
+  render() {
+    return(
+      <button onClick={this.props.handleToggleEnterNewTasks}>Enter New Task {this.props.toggleEnterNewTasks ? 'on' : 'off'}</button>
+    )
+  }
+}
+
+
+class NewTaskNotSelected extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    return(
+      <div className={this.props.className}></div>
+    )
+  }
+}
+
+
+class NewTaskForm extends Component {
+  constructor(props) {
+    super(props)
+    this.getData = this.props.getData
+    this.state = {
       taskName: '',
       taskDesc: '',
       priority: '10',
@@ -17,7 +82,6 @@ class TasksNew extends Component {
 
     this.BASEURL = `http://localhost:3002/`
 
-    this.handleToggleEnterNewTasks = this.handleToggleEnterNewTasks.bind(this)
     this.handleTaskNameInput = this.handleTaskNameInput.bind(this)
     this.handleTaskDescInput = this.handleTaskDescInput.bind(this)
     this.handlePriorityInput = this.handlePriorityInput.bind(this)
@@ -26,11 +90,6 @@ class TasksNew extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleToggleEnterNewTasks() {
-    this.setState(prevState => ({
-      toggleEnterNewTasks: !prevState.toggleEnterNewTasks
-    }))
-  }
 
   handleTaskDescInput(event) {
     this.setState({taskDesc: event.target.value})
@@ -86,85 +145,58 @@ class TasksNew extends Component {
     fetch(`${this.BASEURL}api/todo/`, OPTIONS)
       .then(res => {
         console.log(res)
-        this.getData()
+        this.props.getData()
       })
   }
 
   render() {
-    if (this.state.toggleEnterNewTasks === false) {
-      return(
-        <button onClick={this.handleToggleEnterNewTasks}>Enter New Task(s) {this.state.toggleEnterNewTasks ? 'on' : 'off'}</button>
-      )
-    } else if (this.state.toggleEnterNewTasks === true) {
-      return(
-        <div className={this.props.className}>
-          <button onClick={this.handleToggleEnterNewTasks}>Enter New Task(s) {this.state.toggleEnterNewTasks ? 'on' : 'off'}</button>
-
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Task Name:
-              <input type='text' value={this.state.taskName} onChange={this.handleTaskNameInput}/>
-            </label>
-
-            <label>
-              Task Description:
-              <input type='text' value={this.state.taskDesc} onChange={this.handleTaskDescInput}/>
-            </label>
-
-            <label>
-              Priority:
-              <input type='range' min='0' max='20' value={this.state.priority} onChange={this.handlePriorityInput}/>
-            </label>
-
-            <label>
-              Progress:
-              <select value={this.state.progress} onChange={this.handleProgressInput}>
-                {/*fetch options from db instead of hard coding*/}
-                <option value='1'>not started</option>
-                <option value='2'>in progress</option>
-                <option value='3'>completed</option>
-                <option value='4'>deleted</option>
-              </select>
-            </label>
-
-            <label>
-              Category:
-              <select value={this.state.category} onChange={this.handleCategoryInput}>
-                {/*fetch options from db instead of hard coding*/}
-                <option value='1'>work</option>
-                <option value='2'>personal admin</option>
-                <option value='3'>food shopping</option>
-                <option value='4'>birthdays</option>
-              </select>
-            </label>
-
-            <input type='submit' value='Submit' />
-          </form>
+    return(
+      <form className={this.props.className} onSubmit={this.handleSubmit}>
+        <div className='formUpper'>
+          <label>
+            Task Name:
+            <input type='text' value={this.state.taskName} onChange={this.handleTaskNameInput}/>
+          </label>
+          <input type='submit' value='Submit' />
         </div>
-      )
-    }
-  }
-}
 
+        <div className='formMiddle'>
+          <label className='taskAncil'>
+            Priority:
+            <input type='range' min='0' max='20' value={this.state.priority} onChange={this.handlePriorityInput}/>
+          </label>
 
-//Sub Components
-class EnterNewTaskButtonOn extends Component {
-  constructor(props) {
-    super(props)
-  }
-}
+          <label  className='taskAncil'>
+            Progress:
+            <select value={this.state.progress} onChange={this.handleProgressInput}>
+              {/*fetch options from db instead of hard coding*/}
+              <option value='1'>not started</option>
+              <option value='2'>in progress</option>
+              <option value='3'>completed</option>
+              <option value='4'>deleted</option>
+            </select>
+          </label>
 
+          <label  className='taskAncil'>
+            Category:
+            <select value={this.state.category} onChange={this.handleCategoryInput}>
+              {/*fetch options from db instead of hard coding*/}
+              <option value='1'>work</option>
+              <option value='2'>personal admin</option>
+              <option value='3'>food shopping</option>
+              <option value='4'>birthdays</option>
+            </select>
+          </label>
+        </div>
 
-class EnterNewTaskButtonOff extends Component {
-  constructor(props) {
-    super(props)
-  }
-}
-
-
-class NewTaskForm extends Component {
-  constructor(props) {
-    super(props)
+        <div className='formLower'>
+          <label>
+            Task Description:
+            <input type='text' value={this.state.taskDesc} onChange={this.handleTaskDescInput}/>
+          </label>
+        </div>
+      </form>
+    )
   }
 }
 
@@ -172,12 +204,41 @@ class NewTaskForm extends Component {
 //Styling
 const StyledTasksNew = styled(TasksNew)`
   box-sizing: border-box;
-  margin-top: 1em;
+  margin-top: 0.5em;
   border: solid black 3px;
-  border-bottom-left-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
   width: 96%;
   max-width: 800px;
+
+  display: flex;
+  flex-direction: column;
 `
+
+
+const StyledNewTaskForm = styled(NewTaskForm)`
+  .formUpper {
+    border-top: solid black 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .formMiddle {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    border-top: solid black 3px;
+    border-bottom: solid black 3px;
+  }
+
+  .formLower {
+
+  }
+
+  .taskAncil {
+    margin: 0.5em;
+  }
+`
+
 
 export default StyledTasksNew
