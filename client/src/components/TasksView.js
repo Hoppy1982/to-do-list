@@ -77,26 +77,33 @@ class Task extends Component {
 
 
   render() {
+    let taskFields
+
+    if (this.state.mode === 'view') {
+      taskFields = <TaskFieldsModeIsView
+      task_id={this.task_id}
+      task_name={this.task_name}
+      task_desc={this.task_desc}
+      category={this.category}
+      priority={this.priority}
+      progress={this.progress}
+      />
+    } else {
+      taskFields = <TaskFieldsModeIsEdit
+      task_id={this.task_id}
+      task_name={this.task_name}
+      task_desc={this.task_desc}
+      category={this.category}
+      priority={this.priority}
+      progress={this.progress}
+      />
+    }
+
     return(
       <div className={this.props.className}>
 
-        <StyledEditButton handleClick={this.handleTaskModeToggle}/>
-
-        <form className='taskBodyWrapper'>
-          <div className='taskName'>
-            <label>Task:
-              <input className='editableTaskField' type='text' value={' ' + this.task_name} disabled></input>
-            </label>
-          </div>
-          <div className='taskAncils'>
-            <div>id: {this.task_id}</div>
-            <div>category: {this.category}</div>
-            <div>progress: {this.progress}</div>
-            <div>priority: {this.priority}</div>
-          </div>
-          <div className='taskDescription'>Description: {this.task_desc}</div>
-        </form>
-
+        <StyledEditButton handleClick={this.handleTaskModeToggle} mode={this.state.mode}/>
+        {taskFields}
         <DelButton rowId={this.task_id} getData={this.getData}/>
 
       </div>
@@ -112,6 +119,8 @@ class Task extends Component {
         return {mode: 'view'}
       }
     })
+
+    console.log(`Edit mode: ${this.state.mode}`)
   }
 
 }
@@ -161,16 +170,118 @@ const StyledTask = styled(Task)`
 
 
 //-----------------------------COMPONENT START--------------------------------//
+class TaskFieldsModeIsView extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+
+    this.task_id = this.props.task_id
+    this.task_name = this.props.task_name
+    this.task_desc = this.props.task_desc
+    this.category = this.props.category
+    this.priority = this.props.priority
+    this.progress = this.props.progress
+  }
+
+  render() {
+    return(
+      <div className='taskBodyWrapper'>
+        <div className='taskName'>Task: {this.task_name}</div>
+        <div className='taskAncils'>
+          <div>id: {this.task_id}</div>
+          <div>category: {this.category}</div>
+          <div>progress: {this.progress}</div>
+          <div>priority: {this.priority}</div>
+        </div>
+        <div className='taskDescription'>Description: {this.task_desc}</div>
+      </div>
+    )
+  }
+}
+//-----------------------------COMPONENT END----------------------------------//
+
+
+
+//-----------------------------COMPONENT START--------------------------------//
+class TaskFieldsModeIsEdit extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+
+    this.task_id = this.props.task_id
+    this.task_name = this.props.task_name
+    this.task_desc = this.props.task_desc
+    this.category = this.props.category
+    this.priority = this.props.priority
+    this.progress = this.props.progress
+  }
+
+  render() {
+    return(
+      <form className='taskBodyWrapper'>
+
+        <div className='taskName'>
+          <label>Task:
+            <input className='editableTaskField' type='text' defaultValue={' ' + this.task_name}></input>
+          </label>
+        </div>
+
+        <div className='taskAncils'>
+          <div>id: {this.task_id}</div>
+
+          <label>
+            Category:
+            <select value={this.category}>
+              {/*fetch options from db instead of hard coding*/}
+              <option value='1'>work</option>
+              <option value='2'>personal admin</option>
+              <option value='3'>food shopping</option>
+              <option value='4'>birthdays</option>
+            </select>
+          </label>
+
+          <label>
+            Progress:
+            <select defaultValue={this.progress}>
+              {/*fetch options from db instead of hard coding*/}
+              <option value='1'>not started</option>
+              <option value='2'>in progress</option>
+              <option value='3'>completed</option>
+              <option value='4'>deleted</option>
+            </select>
+          </label>
+
+          <label>
+            Priority:
+            <input type='range' min='0' max='20' defaultValue={this.priority}/>
+          </label>
+        </div>
+
+        <div className='taskDescription'>
+          <label>Description:
+            <input className='editableTaskField' type='text' defaultValue={' ' + this.task_desc}></input>
+          </label>
+        </div>
+
+      </form>
+    )
+  }
+}
+//-----------------------------COMPONENT END----------------------------------//
+
+
+
+//-----------------------------COMPONENT START--------------------------------//
 class EditButton extends Component {
   constructor(props) {
     super(props)
-    this.handleClicked = this.props.handleClick
+    this.handleClick = this.props.handleClick
     this.state = {}
   }
 
   render() {
     return(
-      <button className={this.props.className} onClick={this.handleClicked}>Edit</button>
+      <button className={this.props.className} onClick={this.handleClick}>Edit</button>
     )
   }
 }
