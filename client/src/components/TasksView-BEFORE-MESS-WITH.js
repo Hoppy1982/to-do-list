@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import DelButton from './DelButton'
 
 
 class TasksView extends Component {
@@ -8,13 +9,7 @@ class TasksView extends Component {
     this.tableName = this.props.tableName
     this.rows = this.props.rows
     this.getData = this.props.getData
-    this.state = {
-      //tableName: '',
-      //rows: []
-    }
-
-    //this.BASEURL = `http://localhost:3002/`
-    //this.getData = this.getData.bind(this)
+    this.state = {}
   }
 
 
@@ -26,93 +21,104 @@ class TasksView extends Component {
     } else if (this.props.rows.length > 0) {
       return(
         <div className={this.props.className}>
-          <table>
-            <thead>
-              <tr>
-                <th colSpan='2'>{this.props.tableName}</th>
-              </tr>
-              <tr>
-                {Object.keys(this.props.rows[0]).map((keyName, keyIndex) =>
-                   <th key={keyIndex}>{keyName}</th>
-                )}
-              </tr>
-            </thead>
-            <tbody>
-              {this.props.rows.map(row =>
-                <tr key={row[Object.keys(row)[0]]}>
-                  {Object.keys(row).map((keyName, keyIndex) =>
-                    <td key={keyIndex}>{row[keyName]}</td>
-                  )}
-                  <td><DelButton rowId={row.task_id} getData={this.getData}/></td>
-                </tr>
-                )}
-            </tbody>
-          </table>
+
+          <h1 className='tasksViewH1'>TasksView Component</h1>
+
+          {this.props.rows.map((row) =>
+            <div key={row[Object.keys(row)[0]]} className='taskWrapper'>
+
+              <div className='editButton'>#!Edit!#</div>
+
+              <div className='taskBodyWrapper'>
+                <div className='taskName'>Task: {row.task_name}</div>
+                <div className='taskAncils'>
+                  <div>id: {row.task_id}</div>
+                  <div>category: {row.category}</div>
+                  <div>progress: {row.progress}</div>
+                  <div>priority: {row.priority}</div>
+                </div>
+                <div className='taskDescription'>Description: {row.task_desc}</div>
+              </div>
+
+              <StyledDelButton rowId={row.task_id} getData={this.getData}/>
+
+            </div>
+          )}
         </div>
       )
     }
   }
 
-
-}
-
-
-class DelButton extends Component {
-  constructor(props) {
-    super(props)
-    this.rowId = this.props.rowId
-    this.getData = this.props.getData
-    this.state = {}
-    this.handleDel = this.handleDel.bind(this)
-    this.BASEURL = `http://localhost:3002/`
-  }
-
-  handleDel(event) {
-    console.log(`deleting ${this.rowId}`)
-    const delData = {rowId: this.rowId}
-    const OPTIONS = {
-      method: 'DELETE',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify(delData)
-    }
-
-    fetch(`${this.BASEURL}api/todo/`, OPTIONS)
-      .then(res => {
-        return res.json()
-      })
-      .then(json => {
-        console.log(json.msg)
-        this.getData()
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
-  render() {
-    return(
-      <button onClick={this.handleDel}>del</button>
-    )
-  }
 }
 
 
 const StyledTasksView = styled(TasksView)`
-  border: solid #232323 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 96%;
+  max-width: 800px;
 
-  table {
-    border: solid red 2px;
-    width: 100%;
+  .tasksViewH1 {
+
   }
-`;
+
+  .taskWrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+    color: #000;
+  }
+
+  .editButton {
+    width: 100px;
+    align-self: flex-end;
+    background-color: #f4dc42;
+    font-weight: 700;
+    text-align: center;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border: solid black 3px;
+    border-bottom: none;
+  }
+
+  .taskBodyWrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: space-between;
+    justify-content: space-between;
+    background-color: #5b5b56;
+    color: #fff;
+    padding: 0px;
+    border-top-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    border: solid black 3px;
+  }
+
+  .taskName {
+    text-align: center;
+    border-bottom: solid black 3px;
+    padding: 0.5em;
+  }
+
+  .taskAncils {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px;
+  }
+
+  .taskDescription {
+    border-top: solid black 3px;
+    padding: 0.5em;
+  }
+`
+
+
+const StyledDelButton = styled(DelButton)`
+  align-self: flex-start;
+  border: solid black 3px;
+  border-top: none;
+`
 
 
 export default StyledTasksView

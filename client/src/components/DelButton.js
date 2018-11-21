@@ -46,7 +46,14 @@ class DelButton extends Component {
   }
 }
 
+
+
+
+
 const StyledDelButton = styled(DelButton)`
+  align-self: flex-start;
+  border: solid black 3px;
+  border-top: none;
   width: 100px;
   background-color: #d83636;
   font-weight: 700;
