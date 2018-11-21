@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import DelButton from './DelButton'
+import DelButton from './DelButton/DelButton'
 
 
 //-----------------------------COMPONENT START--------------------------------//
@@ -231,7 +231,7 @@ class TaskFieldsModeIsEdit extends Component {
 
           <label>
             Category:
-            <select value={this.category}>
+            <select defaultValue={this.category}>
               {/*fetch options from db instead of hard coding*/}
               <option value='1'>work</option>
               <option value='2'>personal admin</option>

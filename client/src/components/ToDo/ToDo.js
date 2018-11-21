@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import TasksView from './TasksView'
-import TasksNew from './TasksNew'
-import TableViewer from './TableViewer'
+import TasksView from './TasksView/TasksView'
+import TasksNew from './TasksNew/TasksNew'
+import TableViewer from './TableViewer/TableViewer'
 
 
 class ToDo extends Component {

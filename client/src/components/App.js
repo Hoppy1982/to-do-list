@@ -6,8 +6,7 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom'
-import styled from 'styled-components'
-import ToDo from './ToDo'
+import ToDo from './ToDo/ToDo'
 import NotFound from './NotFound'
 
 
@@ -29,8 +28,6 @@ class App extends Component {
     )
   }
 }
-
-//styling
 
 
 export default App;
