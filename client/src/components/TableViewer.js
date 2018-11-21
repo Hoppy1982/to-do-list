@@ -92,9 +92,11 @@ class RenderRawTable extends Component {
           <tr>
             <th colSpan='2'>{this.props.tableName}</th>
           </tr>
-          <tr>
+          <tr className='tHeaderRow'>
             {Object.keys(this.props.rows[0]).map((keyName, keyIndex) =>
-               <th className='tColHeader' key={keyIndex}>{keyName}</th>
+               <th className='tColHeader' key={keyIndex}>
+                 <p>{keyName}</p>
+               </th>
             )}
           </tr>
         </thead>
@@ -183,6 +185,10 @@ const StyledTableSelect = styled(TableSelect)`
 
 
 const StyledRenderRawTable = styled(RenderRawTable)`
+  * {
+    
+  }
+
   border-left: solid black 3px;
   border-right: solid black 3px;
   border-bottom: solid black 3px;
@@ -194,20 +200,57 @@ const StyledRenderRawTable = styled(RenderRawTable)`
   width: 100%;
 
   .tCell, .tColHeader {
-    /*border: solid grey 1px;*/
+    border: solid grey 1px;
+  }
+
+  .tColHeader {
+    background-color: lightblue;
+  }
+
+  .tColHeader p {
+    background-color: lightgreen;
   }
 
   @media only screen and (max-width: 640px) {
-    .tCell, .tColHeader {
+    .tCell {
       font-size: 0.8em;
     }
-  }
 
-  @media only screen and (max-width: 540px) {
     .tColHeader {
-      height: 120px;
-      transform: rotate(90deg)
+      text-align: left;
     }
+
+    @supports (writing-mode: vertical-lr) {
+      .tColHeader {
+        height: 100px;
+      }
+
+      .tHeaderRow {
+        box-sizing: border-box;/*css & ie are dog shit, this stops table from not being 100% width with small number of columns*/
+        height: 100px;
+      }
+
+      .tColHeader p {
+        height: 100px;
+        writing-mode: vertical-lr;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+/*
+    @supports not (writing-mode: vertical-lr) {
+      .tColHeader {
+        height: 140px;
+      }
+
+      .tColHeader p {
+        width: 140px;
+        transform-origin: center;
+        transform: rotate(90deg);
+        margin: auto;
+      }
+    }
+*/
   }
 `
 
