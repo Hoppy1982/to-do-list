@@ -186,7 +186,7 @@ const StyledTableSelect = styled(TableSelect)`
 
 const StyledRenderRawTable = styled(RenderRawTable)`
   * {
-    
+
   }
 
   border-left: solid black 3px;
@@ -200,15 +200,15 @@ const StyledRenderRawTable = styled(RenderRawTable)`
   width: 100%;
 
   .tCell, .tColHeader {
-    border: solid grey 1px;
+    
   }
 
   .tColHeader {
-    background-color: lightblue;
+
   }
 
   .tColHeader p {
-    background-color: lightgreen;
+
   }
 
   @media only screen and (max-width: 640px) {

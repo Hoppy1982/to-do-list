@@ -30,7 +30,7 @@ class TasksNew extends Component {
 
     return(
       <div className={this.props.className}>
-        <EnterNewTaskToggle toggleEnterNewTasks={this.state.toggleEnterNewTasks} handleToggleEnterNewTasks={this.handleToggleEnterNewTasks}/>
+        <StyledEnterNewTaskToggle toggleEnterNewTasks={this.state.toggleEnterNewTasks} handleToggleEnterNewTasks={this.handleToggleEnterNewTasks}/>
         {componentToDisplay}
       </div>
     )
@@ -49,7 +49,7 @@ class EnterNewTaskToggle extends Component {
 
   render() {
     return(
-      <button onClick={this.props.handleToggleEnterNewTasks}>Enter New Task {this.props.toggleEnterNewTasks ? 'on' : 'off'}</button>
+      <button className={this.props.className} onClick={this.props.handleToggleEnterNewTasks}>Enter New Task {this.props.toggleEnterNewTasks ? 'on' : 'off'}</button>
     )
   }
 }
@@ -238,6 +238,10 @@ const StyledNewTaskForm = styled(NewTaskForm)`
   .taskAncil {
     margin: 0.5em;
   }
+`
+
+const StyledEnterNewTaskToggle = styled(EnterNewTaskToggle)`
+  border-bottom-right-radius: 0.4em;
 `
 
 
