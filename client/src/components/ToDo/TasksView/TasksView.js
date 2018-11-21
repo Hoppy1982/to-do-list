@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import Task from './Task/Task'
 
 
-//-----------------------------COMPONENT START--------------------------------//
 class TasksView extends Component {
   constructor(props) {
     super(props)
@@ -51,11 +50,6 @@ const StyledTasksView = styled(TasksView)`
   width: 96%;
   max-width: 800px;
 `
-//-----------------------------COMPONENT END----------------------------------//
-
-
-
-
 
 
 export default StyledTasksView
