@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-
+//!!!pull out subComponents into separate files!!!
 class TasksNew extends Component {
   constructor(props) {
     super(props)

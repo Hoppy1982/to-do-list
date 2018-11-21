@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-
+//!!!pull out subComponents into separate files!!!
 class TableViewer extends Component {
   constructor(props) {
     super(props)
@@ -200,7 +200,7 @@ const StyledRenderRawTable = styled(RenderRawTable)`
   width: 100%;
 
   .tCell, .tColHeader {
-    
+
   }
 
   .tColHeader {
