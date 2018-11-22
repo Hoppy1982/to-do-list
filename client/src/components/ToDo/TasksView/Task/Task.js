@@ -46,6 +46,7 @@ class Task extends Component {
       category={this.category}
       priority={this.priority}
       progress={this.progress}
+      getData={this.getData}
       />
     }
 
