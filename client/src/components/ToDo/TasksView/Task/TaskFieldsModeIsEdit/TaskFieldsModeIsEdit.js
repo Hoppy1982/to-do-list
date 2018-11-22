@@ -39,6 +39,7 @@ class TaskFieldsModeIsEdit extends Component {
     this.progress = this.props.progress
 
     this.getData = this.props.getData
+    this.taskToViewMode = this.props.taskToViewMode
 
     this.handleTaskNameInput = this.handleTaskNameInput.bind(this)
     this.handleTaskDescInput = this.handleTaskDescInput.bind(this)
@@ -51,12 +52,12 @@ class TaskFieldsModeIsEdit extends Component {
 
   componentDidMount() {
     this.setState({
-      taskId: this.task_id,
-      taskName: this.task_name,
-      taskDesc: this.task_desc,
-      priority: this.priority,
-      progress: PROGRESSES[this.progress],
-      category: CATEGORIES[this.category]
+      taskId: this.props.task_id,
+      taskName: this.props.task_name,
+      taskDesc: this.props.task_desc,
+      priority: this.props.priority,
+      progress: PROGRESSES[this.props.progress],
+      category: CATEGORIES[this.props.category]
     })
   }
 
@@ -116,7 +117,8 @@ class TaskFieldsModeIsEdit extends Component {
     fetch(`${this.BASEURL}api/todo/`, OPTIONS)
       .then(res => {
         console.log(res)
-        this.getData()
+        this.props.getData()
+        this.props.taskToViewMode()
       })
   }
 
@@ -127,18 +129,18 @@ class TaskFieldsModeIsEdit extends Component {
 
         <div className='formAreaTop'>
           <label>Task:
-            <input className='editableTaskField' type='text' defaultValue={' ' + this.task_name} onChange={this.handleTaskNameInput}></input>
+            <input className='editableTaskField' type='text' defaultValue={' ' + this.props.task_name} onChange={this.handleTaskNameInput}></input>
           </label>
 
           <input type='submit' value='Submit Changes' />
         </div>
 
         <div className='formAreaMiddle'>
-          <div>id: {this.task_id}</div>
+          <div>id: {this.props.task_id}</div>
 
           <label>
             Category:
-            <select defaultValue={this.category} onChange={this.handleCategoryInput}>
+            <select defaultValue={this.props.category} onChange={this.handleCategoryInput}>
               {/*fetch options from db instead of hard coding*/}
               <option value='1'>work</option>
               <option value='2'>personal admin</option>
@@ -149,7 +151,7 @@ class TaskFieldsModeIsEdit extends Component {
 
           <label>
             Progress:
-            <select defaultValue={this.progress} onChange={this.handleProgressInput}>
+            <select defaultValue={this.props.progress} onChange={this.handleProgressInput}>
               {/*fetch options from db instead of hard coding*/}
               <option value='1'>not started</option>
               <option value='2'>in progress</option>
@@ -160,13 +162,13 @@ class TaskFieldsModeIsEdit extends Component {
 
           <label>
             Priority:
-            <input type='range' min='0' max='20' defaultValue={this.priority} onChange={this.handlePriorityInput}/>
+            <input type='range' min='0' max='20' defaultValue={this.props.priority} onChange={this.handlePriorityInput}/>
           </label>
         </div>
 
         <div className='formAreaBottom'>
           <label>Description:
-            <input className='editableTaskField' type='text' defaultValue={' ' + this.task_desc} onChange={this.handleTaskDescInput}></input>
+            <input className='editableTaskField' type='text' defaultValue={' ' + this.props.task_desc} onChange={this.handleTaskDescInput}></input>
           </label>
         </div>
 

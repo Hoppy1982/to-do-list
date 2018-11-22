@@ -18,14 +18,14 @@ class TaskFieldsModeIsView extends Component {
   render() {
     return(
       <div className={this.props.className}>
-        <div className='formAreaTop'>Task: {this.task_name}</div>
+        <div className='formAreaTop'>Task: {this.props.task_name}</div>
         <div className='formAreaMiddle'>
-          <div>id: {this.task_id}</div>
-          <div>category: {this.category}</div>
-          <div>progress: {this.progress}</div>
-          <div>priority: {this.priority}</div>
+          <div>id: {this.props.task_id}</div>
+          <div>category: {this.props.category}</div>
+          <div>progress: {this.props.progress}</div>
+          <div>priority: {this.props.priority}</div>
         </div>
-        <div className='formAreaBottom'>Description: {this.task_desc}</div>
+        <div className='formAreaBottom'>Description: {this.props.task_desc}</div>
       </div>
     )
   }

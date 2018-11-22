@@ -23,30 +23,35 @@ class Task extends Component {
     this.getData = this.props.getData
 
     this.handleTaskModeToggle = this.handleTaskModeToggle.bind(this)
+    this.handleTaskToViewMode = this.handleTaskToViewMode.bind(this)
   }
 
 
   render() {
+    console.log('render()..')
+    console.log(this.props.task_name)
+
     let taskFields
 
     if (this.state.mode === 'view') {
       taskFields = <TaskFieldsModeIsView
-      task_id={this.task_id}
-      task_name={this.task_name}
-      task_desc={this.task_desc}
-      category={this.category}
-      priority={this.priority}
-      progress={this.progress}
+      task_id={this.props.task_id}
+      task_name={this.props.task_name}
+      task_desc={this.props.task_desc}
+      category={this.props.category}
+      priority={this.props.priority}
+      progress={this.props.progress}
       />
     } else {
       taskFields = <TaskFieldsModeIsEdit
-      task_id={this.task_id}
-      task_name={this.task_name}
-      task_desc={this.task_desc}
-      category={this.category}
-      priority={this.priority}
-      progress={this.progress}
-      getData={this.getData}
+      task_id={this.props.task_id}
+      task_name={this.props.task_name}
+      task_desc={this.props.task_desc}
+      category={this.props.category}
+      priority={this.props.priority}
+      progress={this.props.progress}
+      getData={this.props.getData}
+      taskToViewMode={this.handleTaskToViewMode}
       />
     }
 
@@ -55,7 +60,7 @@ class Task extends Component {
 
         <EditButton handleClick={this.handleTaskModeToggle} mode={this.state.mode}/>
         {taskFields}
-        <DelButton rowId={this.task_id} getData={this.getData}/>
+        <DelButton rowId={this.props.task_id} getData={this.props.getData}/>
 
       </div>
     )
@@ -72,6 +77,11 @@ class Task extends Component {
     })
 
     console.log(`Edit mode: ${this.state.mode}`)
+  }
+
+
+  handleTaskToViewMode() {
+    this.setState({mode: 'view'})
   }
 
 }
