@@ -26,6 +26,7 @@ router.use('/', (req, res, next) => {
 router.get('/api/table/:table/', TableController.index)
 router.get('/api/todo/', TodoController.index)
 router.post('/api/todo/', TodoController.create)
+router.put('/api/todo/', TodoController.edit)
 router.delete('/api/todo/', TodoController.delete)
 // router.put('/api/todo/:id', TodoController.update)
 

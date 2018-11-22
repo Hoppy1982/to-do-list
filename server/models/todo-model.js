@@ -32,7 +32,7 @@ class TodoModel {
   }
 
   create(todoTaskUserInput) {
-    console.log('Received user input to create new todo task. Validating input..')
+    console.log('Received user input to create new todo task..')
 
     validateUserInput.todo(todoTaskUserInput)
       .then(validationIssues => {
@@ -68,7 +68,39 @@ class TodoModel {
 
       })
 
-      return 'create: temporary return msgs'
+      return 'todoModel.screate: temporary return msgs'
+  }
+
+  edit(todoTaskUserInput) {
+    console.log('Received user imput to edit an existing todo task..')
+
+    validateUserInput.todo(todoTaskUserInput)
+      .then(validationIssues => {
+
+        if (validationIssues.length === 0) {
+          let str = `
+          UPDATE tasks
+          SET
+            task_name = '${todoTaskUserInput.name}',
+            task_desc = '${todoTaskUserInput.description}'
+          WHERE task_id = ${todoTaskUserInput.id}
+          ;`
+
+          console.log('Input is valid, updating todo task in DB..')
+          database.queryDB(str)
+            .then(rows => {
+              console.log(rows)
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        } else if (validationIssues.length > 0) {
+          console.log(`Input is invalid. validationIssues: ${validationIssues}`)
+        }
+
+      })
+
+      return 'todoModel.edit: temporary return msgs'
   }
 
   delete(delData) {

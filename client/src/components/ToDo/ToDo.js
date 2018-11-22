@@ -35,6 +35,8 @@ class ToDo extends Component {
 
 
   getData() {
+    console.log('getData called..')
+
     const OPTIONS = {
       method: 'GET',
       mode: 'cors',
@@ -50,6 +52,9 @@ class ToDo extends Component {
         return res.json()
       })
       .then(json => {
+        this.setState({
+          rows: []
+        })
         this.setState({
           tableName: json.tableName,
           rows: json.rows

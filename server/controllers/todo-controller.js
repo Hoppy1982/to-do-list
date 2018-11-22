@@ -26,6 +26,12 @@ class TodoController {
     // return success or fail http error code and status message
   }
 
+  edit(req, res, next) {
+    let putOperationSuccess = TodoModel.edit(req.body.todoTask)
+    res.setHeader('Content-Type', 'text/plain')
+    res.send(putOperationSuccess)
+  }
+
   delete(req, res, next) {
     let deleteOperationStatus = TodoModel.delete(req.body)
     console.log(`deleteOperationStatus: ${deleteOperationStatus}`)

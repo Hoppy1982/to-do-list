@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-//Converting these in the frontend like this sucks as vunerable to db changes
+//Converting these in the frontend like this sucks as will break if db table fields change
 const PROGRESSES = {
   'not started': '1',
   'in progress': '2',
@@ -21,6 +21,7 @@ class TaskFieldsModeIsEdit extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      taskId: '',
       taskName: '',
       taskDesc: '',
       priority: '',
@@ -49,18 +50,8 @@ class TaskFieldsModeIsEdit extends Component {
 
 
   componentDidMount() {
-    console.log('***TASK NAME***')
-    console.log(this.task_name)
-    console.log('***TASK DESC***')
-    console.log(this.task_desc)
-    console.log('***PRIORITY***')
-    console.log(this.priority)
-    console.log('***PROGRESS***')
-    console.log(PROGRESSES[this.progress])
-    console.log('***CATEGORY***')
-    console.log(CATEGORIES[this.category])
-
     this.setState({
+      taskId: this.task_id,
       taskName: this.task_name,
       taskDesc: this.task_desc,
       priority: this.priority,
@@ -102,6 +93,7 @@ class TaskFieldsModeIsEdit extends Component {
   postFormData() {
     const FORM_DATA = {
       todoTask : {
+        id: this.state.taskId,
         name: this.state.taskName,
         description: this.state.taskDesc,
         priority: this.state.priority,
@@ -111,7 +103,7 @@ class TaskFieldsModeIsEdit extends Component {
     }
 
     const OPTIONS = {
-      method: 'POST',
+      method: 'PUT',
       mode: 'cors',
       cache: 'no-cache',
       credentials: 'same-origin',
@@ -124,7 +116,7 @@ class TaskFieldsModeIsEdit extends Component {
     fetch(`${this.BASEURL}api/todo/`, OPTIONS)
       .then(res => {
         console.log(res)
-        this.props.getData()
+        this.getData()
       })
   }
 

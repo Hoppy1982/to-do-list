@@ -34,7 +34,8 @@ function hasCorrectKeys(unValidatedData) {
   if (unValidatedData.hasOwnProperty('priority') === false) { passedValidation = false }
   if (unValidatedData.hasOwnProperty('progress') === false) { passedValidation = false }
   if (unValidatedData.hasOwnProperty('category') === false) { passedValidation = false }
-  if (Object.keys(unValidatedData).length !== 5) { passedValidation = false }
+  //id property is supplied in req obj if editing a task so can't check for num props like below
+  //if (Object.keys(unValidatedData).length !== 5) { passedValidation = false }
 
   return passedValidation
 }
