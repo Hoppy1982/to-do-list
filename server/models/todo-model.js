@@ -82,7 +82,10 @@ class TodoModel {
           UPDATE tasks
           SET
             task_name = '${todoTaskUserInput.name}',
-            task_desc = '${todoTaskUserInput.description}'
+            task_desc = '${todoTaskUserInput.description}',
+            priority = '${todoTaskUserInput.priority}',
+            progress_id = '${todoTaskUserInput.progress}',
+            category_id = '${todoTaskUserInput.category}'
           WHERE task_id = ${todoTaskUserInput.id}
           ;`
 

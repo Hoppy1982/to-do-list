@@ -52,9 +52,7 @@ class ToDo extends Component {
         return res.json()
       })
       .then(json => {
-        this.setState({
-          rows: []
-        })
+        //this.setState({rows: []})//ask someone a different way of forcing a render other than setState({rows:[]})
         this.setState({
           tableName: json.tableName,
           rows: json.rows

@@ -16,7 +16,6 @@ class TasksView extends Component {
 
 
   render() {
-    console.log('TasksView rendering..')
     if (this.props.rows.length === 0) {
       return(
         <h2>No task data to fetch</h2>
