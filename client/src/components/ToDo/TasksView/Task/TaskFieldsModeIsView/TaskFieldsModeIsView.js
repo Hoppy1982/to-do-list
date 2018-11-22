@@ -17,19 +17,54 @@ class TaskFieldsModeIsView extends Component {
 
   render() {
     return(
-      <div className='taskBodyWrapper'>
-        <div className='taskName'>Task: {this.task_name}</div>
-        <div className='taskAncils'>
+      <div className={this.props.className}>
+        <div className='formAreaTop'>Task: {this.task_name}</div>
+        <div className='formAreaMiddle'>
           <div>id: {this.task_id}</div>
           <div>category: {this.category}</div>
           <div>progress: {this.progress}</div>
           <div>priority: {this.priority}</div>
         </div>
-        <div className='taskDescription'>Description: {this.task_desc}</div>
+        <div className='formAreaBottom'>Description: {this.task_desc}</div>
       </div>
     )
   }
 }
 
 
-export default TaskFieldsModeIsView
+const StyledTaskFieldsModeIsView = styled(TaskFieldsModeIsView)`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: space-between;
+  justify-content: space-between;
+  background-color: #5b5b56;
+  color: #fff;
+  padding: 0px;
+  border-top-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  border: solid black 3px;
+
+
+  .formAreaTop {
+    text-align: center;
+    border-bottom: solid black 3px;
+    padding: 0.5em;
+  }
+
+  .formAreaMiddle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px;
+  }
+
+  .formAreaBottom {
+    border-top: solid black 3px;
+    padding: 0.5em;
+  }
+`
+
+
+export default StyledTaskFieldsModeIsView

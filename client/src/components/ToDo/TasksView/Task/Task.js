@@ -80,40 +80,6 @@ const StyledTask = styled(Task)`
   flex-direction: column;
   margin-bottom: 1em;
   color: #000;
-
-
-.taskBodyWrapper {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: space-between;
-  justify-content: space-between;
-  background-color: #5b5b56;
-  color: #fff;
-  padding: 0px;
-  border-top-left-radius: 0.5em;
-  border-bottom-right-radius: 0.5em;
-  border: solid black 3px;
-}
-
-.taskName {
-  text-align: center;
-  border-bottom: solid black 3px;
-  padding: 0.5em;
-}
-
-.taskAncils {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 4px;
-}
-
-.taskDescription {
-  border-top: solid black 3px;
-  padding: 0.5em;
-}
 `
 
 
